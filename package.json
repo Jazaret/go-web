@@ -1,0 +1,20 @@
+{
+  "name": "go-web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "dynamic data driven web application written in go",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "zurb-foundation-5": "^5.4.7"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^2.0.0",
+    "load-grunt-tasks": "^3.5.2"
+  }  
+}
