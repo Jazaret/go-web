@@ -6,15 +6,23 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"github.com/jazaret/go-web/viewmodel"
 )
 
 func main() {
 	templates := populateTemplates()
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		requestedFile := r.URL.Path[1:]
-		t := templates[requestedFile+".html"]
-		if t != nil {
-			err := t.Execute(w, nil)
+		template := templates[requestedFile+".html"]
+		var context interface{}
+		switch requestedFile {
+		case "shop":
+			context = viewmodel.NewShop()
+		default:
+			context = viewmodel.NewBase()
+		}
+		if template != nil {
+			err := template.Execute(w, context)
 			if err != nil {
 				log.Println(err)
 			}
@@ -57,7 +65,7 @@ func populateTemplates() map[string]*template.Template {
 		tmpl := template.Must(layout.Clone())
 		_, err = tmpl.Parse(string(content))
 		if err != nil {
-			panic("Failed to parse contents of '" + fi.Name() + "' as template")
+			panic("Failed to parse contents of '" + fi.Name() + "' as template. Error - " + err.Error())
 		}
 		result[fi.Name()] = tmpl
 	}
