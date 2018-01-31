@@ -7,10 +7,11 @@ type Shop struct {
 }
 
 type Category struct {
-	URL			string
-	ImageURL	string
-	Title		string
-	Description	string
+	URL				string
+	ImageURL		string
+	Title			string
+	Description		string
+	IsOrientRight 	bool
 }
 
 func NewShop() Shop {
@@ -31,6 +32,7 @@ func NewShop() Shop {
 		ImageURL: "kiwi.png",
 		Title: "Cups, Straws, and Other Supplies",
 		Description: `From paper cups to bio-degradable plastic to straws and napkins, LSS is your source for the sundries that keep your stand running smoothly.`,
+		IsOrientRight: true,
 	}
 
 	advertizeCategory := Category{
