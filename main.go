@@ -3,38 +3,15 @@ package main
 import (
 	"html/template"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
-	"github.com/jazaret/go-web/viewmodel"
+
+	"github.com/jazaret/go-web/controller"
 )
 
 func main() {
 	templates := populateTemplates()
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		requestedFile := r.URL.Path[1:]
-		template := templates[requestedFile+".html"]
-		var context interface{}
-		switch requestedFile {
-		case "shop":
-			context = viewmodel.NewShop()
-		case "home":
-			context = viewmodel.NewHome()
-		default:
-			context = viewmodel.NewBase()
-		}
-		if template != nil {
-			err := template.Execute(w, context)
-			if err != nil {
-				log.Println(err)
-			}
-		} else {
-			w.WriteHeader(http.StatusNotFound)
-		}
-	})
-
-	http.Handle("/img/", http.FileServer(http.Dir("public")))
-	http.Handle("/css/", http.FileServer(http.Dir("public")))
+	controller.Startup(templates)
 	http.ListenAndServe(":8000", nil)
 }
 
