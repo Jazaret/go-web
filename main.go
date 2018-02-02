@@ -7,12 +7,13 @@ import (
 	"os"
 
 	"github.com/jazaret/go-web/controller"
+	"github.com/jazaret/go-web/middleware"
 )
 
 func main() {
 	templates := populateTemplates()
 	controller.Startup(templates)
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(":8000", new(middleware.GzipMiddleWare))
 }
 
 func populateTemplates() map[string]*template.Template {
