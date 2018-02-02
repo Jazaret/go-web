@@ -21,10 +21,12 @@ func (sl standLocator) registerRoutes() {
 
 func (sl standLocator) handleStandLocator(w http.ResponseWriter, r *http.Request) {
 	vm := viewmodel.NewStandLocator()
+	w.Header().Add("Content-Type", "text/html")
 	sl.standLocatorTemplate.Execute(w, vm)
 }
 
 func (sl standLocator) handleApiStands(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-Type", "text/json")
 	dec := json.NewDecoder(r.Body)
 	var loc struct {
 		ZipCode string `json:"zipCode"`

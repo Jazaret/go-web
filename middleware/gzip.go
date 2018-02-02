@@ -7,11 +7,11 @@ import (
 	"strings"
 )
 
-type GzipMiddleWare struct {
+type GzipMiddleware struct {
 	Next http.Handler
 }
 
-func (gm GzipMiddleWare) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (gm *GzipMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if gm.Next == nil {
 		gm.Next = http.DefaultServeMux
 	}
